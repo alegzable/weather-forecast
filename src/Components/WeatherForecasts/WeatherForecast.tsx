@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { temperatureUnits } from "./TemperatureUnits";
-import { TemperatureUnitsContext } from "./TemperatureUnitsContext";
-import { toFahrenheit } from "./Services/utils";
-import { WeatherForecastModel } from "./WeatherForecastModel";
+import { temperatureUnits } from "../../TemperatureUnits";
+import { TemperatureUnitsContext } from "../../TemperatureUnitsContext";
+import { toFahrenheit } from "../../Services/utils";
+import { WeatherForecastModel } from "../../WeatherForecastModel";
 
 type WeatherForecastProps = {
 	forecast: WeatherForecastModel;

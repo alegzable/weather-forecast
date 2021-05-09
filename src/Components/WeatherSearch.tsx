@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { WeatherForecastModel } from "./WeatherForecastModel";
+import { WeatherForecastModel } from "../WeatherForecastModel";
 import SearchInput from "./SearchInput";
 import styled from "styled-components";
-import { LocationModel } from "./LocationModel";
-import AvailableLocations from "./AvailableLocations";
+import { LocationModel } from "../LocationModel";
+import AvailableLocations from "./AvaliableLocations/AvailableLocations";
 import { debounce } from "lodash";
-import WeatherForecasts from "./WeatherForecasts";
-import { addToStorage, getFromStorage } from "./localStorageService";
+import WeatherForecasts from "./WeatherForecasts/WeatherForecasts";
+import { addToStorage, getFromStorage } from "../localStorageService";
 import UnitsToggle from "./UnitsToggle";
-import { TemperatureUnits } from "./TemperatureUnits";
-import { getLocations, getNearestLocationByCoords, getWeatherForecast } from "./Services/api";
-import { TemperatureUnitsContext } from "./TemperatureUnitsContext";
+import { TemperatureUnits } from "../TemperatureUnits";
+import { getLocations, getNearestLocationByCoords, getWeatherForecast } from "../Services/api";
+import { TemperatureUnitsContext } from "../TemperatureUnitsContext";
 
 const Container = styled.div`
 	padding: 4rem;

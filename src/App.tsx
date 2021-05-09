@@ -1,5 +1,5 @@
 import GlobalStyles from "./globalStyles";
-import WeatherSearch from "./WeatherSearch";
+import WeatherSearch from "./Components/WeatherSearch";
 
 function App() {
 	return (

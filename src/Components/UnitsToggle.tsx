@@ -1,8 +1,8 @@
 import React from "react";
-// import Switch from "rc-switch";
 import { Toggle } from "react-toggle-component";
 import styled from "styled-components";
-import { temperatureUnits, TemperatureUnits } from "./TemperatureUnits";
+import { temperatureUnits, TemperatureUnits } from "../TemperatureUnits";
+
 type UnitsToggleProps = {
 	onChange: (unit: TemperatureUnits) => void;
 	unit: TemperatureUnits;

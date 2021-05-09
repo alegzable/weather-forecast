@@ -1,4 +1,4 @@
-import { LocationModel } from "./LocationModel";
+import { LocationModel } from "../../LocationModel";
 
 type AvailableLocationProps = {
 	location: LocationModel;
