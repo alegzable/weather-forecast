@@ -1,6 +1,6 @@
-import { LocationModel } from "./LocationModel";
+import { LocationModel } from "../LocationModel";
 import { getNearestLocation, toNumber } from "./utils";
-import { WeatherForecastModel } from "./WeatherForecastModel";
+import { WeatherForecastModel } from "../WeatherForecastModel";
 
 const proxy = "https://cors-anywhere.herokuapp.com";
 const baseUrl = `${proxy}/https://www.metaweather.com/api/location`;

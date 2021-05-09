@@ -9,7 +9,7 @@ import WeatherForecasts from "./WeatherForecasts";
 import { addToStorage, getFromStorage } from "./localStorageService";
 import UnitsToggle from "./UnitsToggle";
 import { TemperatureUnits } from "./TemperatureUnits";
-import { getLocations, getNearestLocationByCoords, getWeatherForecast } from "./api";
+import { getLocations, getNearestLocationByCoords, getWeatherForecast } from "./Services/api";
 import { TemperatureUnitsContext } from "./TemperatureUnitsContext";
 
 const Container = styled.div`
