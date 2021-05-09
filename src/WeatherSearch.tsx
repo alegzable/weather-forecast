@@ -6,12 +6,11 @@ import { LocationModel } from "./LocationModel";
 import AvailableLocations from "./AvailableLocations";
 import { debounce } from "lodash";
 import WeatherForecasts from "./WeatherForecasts";
-import { getNearestLocation, toNumber } from "./utils";
 import { addToStorage, getFromStorage } from "./localStorageService";
 import UnitsToggle from "./UnitsToggle";
 import { TemperatureUnits } from "./TemperatureUnits";
 import React from "react";
-import { getCoordinateSearchUrl, getLocationIdUrl, getPhraseSearchUrl } from "./api";
+import { getLocations, getNearestLocationByCoords, getWeatherForecast } from "./api";
 
 const Container = styled.div`
 	padding: 4rem;
@@ -97,46 +96,3 @@ const WeatherSearch = (): JSX.Element => {
 };
 
 export default WeatherSearch;
-
-async function getLocations(searchPhrase: string) {
-	const response = await fetch(getPhraseSearchUrl(searchPhrase));
-	const jsonResponse = await response.json();
-
-	return (jsonResponse as any[]).map((x) => new LocationModel(x.title, x.woeid));
-}
-
-async function getWeatherForecast(
-	locationName: string,
-	locationId: string,
-	days: number
-): Promise<WeatherForecastModel[]> {
-	const response = await fetch(getLocationIdUrl(locationId));
-	const jsonResponse = await response.json();
-
-	const weatherModels = (jsonResponse.consolidated_weather as any[])
-		.slice(0, days)
-		.map(
-			(x) =>
-				new WeatherForecastModel(
-					x.id,
-					locationName,
-					x.applicable_date,
-					toNumber(x.the_temp, 1),
-					toNumber(x.min_temp, 1),
-					toNumber(x.max_temp, 1),
-					x.weather_state_name,
-					toNumber(x.wind_speed, 1)
-				)
-		);
-
-	return weatherModels;
-}
-
-async function getNearestLocationByCoords(latitude: number, longitude: number) {
-	const response = await fetch(getCoordinateSearchUrl(latitude, longitude));
-	const jsonResponse = await response.json();
-
-	const nearestLocation = getNearestLocation(jsonResponse as any[]);
-
-	return new LocationModel(nearestLocation.title, nearestLocation.woeid);
-}
