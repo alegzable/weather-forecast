@@ -9,8 +9,8 @@ import WeatherForecasts from "./WeatherForecasts";
 import { addToStorage, getFromStorage } from "./localStorageService";
 import UnitsToggle from "./UnitsToggle";
 import { TemperatureUnits } from "./TemperatureUnits";
-import React from "react";
 import { getLocations, getNearestLocationByCoords, getWeatherForecast } from "./api";
+import { TemperatureUnitsContext } from "./TemperatureUnitsContext";
 
 const Container = styled.div`
 	padding: 4rem;
@@ -20,8 +20,6 @@ const SearchBar = styled.div`
 	display: flex;
 	align-items: center;
 `;
-
-export const TemperatureUnitsContext = React.createContext<TemperatureUnits>("celcius");
 
 const WeatherSearch = (): JSX.Element => {
 	const [availableLocations, setAvailableLocations] = useState<LocationModel[]>([]);
