@@ -1,5 +1,5 @@
 import AvailableLocation from "./AvailableLocation";
-import { LocationModel } from "../../LocationModel";
+import { LocationModel } from "../../Models/LocationModel";
 import React from "react";
 import { Tile, Tiles } from "../Layout/Tiles";
 import styled from "styled-components";

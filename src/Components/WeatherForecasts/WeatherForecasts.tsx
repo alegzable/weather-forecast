@@ -1,7 +1,7 @@
 import WeatherForecast from "./WeatherForecast";
-import { WeatherForecastModel } from "../../WeatherForecastModel";
 import React from "react";
 import { Tile, Tiles } from "../Layout/Tiles";
+import { WeatherForecastModel } from "../../Models/WeatherForecastModel";
 
 type WeatherForecastsProps = {
 	forecasts: WeatherForecastModel[];

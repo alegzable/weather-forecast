@@ -1,7 +1,7 @@
 import React from "react";
 import { Toggle } from "react-toggle-component";
 import styled from "styled-components";
-import { temperatureUnits, TemperatureUnits } from "../TemperatureUnits";
+import { temperatureUnits, TemperatureUnits } from "../Models/TemperatureUnits";
 
 type UnitsToggleProps = {
 	onChange: (unit: TemperatureUnits) => void;
