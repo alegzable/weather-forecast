@@ -12,7 +12,7 @@ const getCoordinateSearchUrl = (latitude: number, longitude: number) =>
 
 const getLocationIdUrl = (locationId: string) => `${baseUrl}/${locationId}`;
 
-export const getLocations = async (searchPhrase: string) => {
+export const getLocations = async (searchPhrase: string): Promise<LocationModel[]> => {
 	try {
 		const response = await get<any[]>(getPhraseSearchUrl(searchPhrase));
 
