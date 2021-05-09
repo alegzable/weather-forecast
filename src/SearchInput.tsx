@@ -6,8 +6,7 @@ type SearchInputProps = {
 };
 
 const Input = styled.input`
-	// width: 100%;
-	flex: 2;
+	flex: 1;
 	height: 4rem;
 	padding: 0.8rem;
 	font-size: 1.8rem;
