@@ -14,27 +14,30 @@ const Label = styled.label`
 	margin-left: 1rem;
 `;
 
+export const testId = "tempUnitToggle";
+
 const UnitsToggle: React.FC<UnitsToggleProps> = ({ onChange, unit }: UnitsToggleProps) => {
 	const handleChange = (checked: boolean) => {
-		const newUnit: TemperatureUnits = checked ? "fahrnheit" : "celcius";
+		const newUnit: TemperatureUnits = checked ? "fahrenheit" : "celcius";
 		onChange(newUnit);
 	};
 
-	const toggleName = "tempUnitToggle";
-
 	return (
-		<Label htmlFor={toggleName}>
+		<Label htmlFor={testId}>
 			<span>{temperatureUnits.celcius}</span>
 			<Toggle
-				name={toggleName}
+				name={testId}
 				leftBackgroundColor="white"
 				rightBackgroundColor="white"
 				borderColor="#3887b7"
 				knobColor="#3887b7"
-				onToggle={(e: any) => handleChange(e.target.checked)}
-				checked={unit === "fahrnheit"}
+				onToggle={(e: any) => {
+					handleChange(e.target.checked);
+				}}
+				checked={unit === "fahrenheit"}
+				data-testid={testId}
 			/>
-			<span>{temperatureUnits.fahrnheit}</span>
+			<span>{temperatureUnits.fahrenheit}</span>
 		</Label>
 	);
 };

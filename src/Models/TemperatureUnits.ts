@@ -1,6 +1,6 @@
 export const temperatureUnits = {
 	celcius: `${String.fromCharCode(176)}C`,
-	fahrnheit: "F",
+	fahrenheit: "F",
 } as const;
 
 export type TemperatureUnits = keyof typeof temperatureUnits;
