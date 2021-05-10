@@ -64,7 +64,7 @@ const WeatherSearchPage = (): JSX.Element => {
 			onSelectedLocationChange={setSelectedLocation}
 			weatherForecasts={weatherForecasts}
 			availableLocations={availableLocations}
-			debounceWaitPeriod={1000}
+			debounceWaitPeriod={300}
 		/>
 	);
 };
