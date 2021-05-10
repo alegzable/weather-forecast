@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
-import SearchInput from "./SearchInput";
-import styled from "styled-components";
-import AvailableLocations from "./AvaliableLocations/AvailableLocations";
 import { debounce } from "lodash";
-import WeatherForecasts from "./WeatherForecasts/WeatherForecasts";
-import { addToStorage, getFromStorage } from "../localStorageService";
-import UnitsToggle from "./UnitsToggle";
-import { TemperatureUnits } from "../Models/TemperatureUnits";
-import { getLocations, getNearestLocationByCoords, getWeatherForecast } from "../Services/api";
-import { TemperatureUnitsContext } from "../TemperatureUnitsContext";
+import styled from "styled-components";
 import { LocationModel } from "../Models/LocationModel";
+import { TemperatureUnits } from "../Models/TemperatureUnits";
 import { WeatherForecastModel } from "../Models/WeatherForecastModel";
+import { TemperatureUnitsContext } from "../TemperatureUnitsContext";
+import AvailableLocations from "./AvaliableLocations/AvailableLocations";
+import SearchInput from "./SearchInput";
+import UnitsToggle from "./UnitsToggle";
+import WeatherForecasts from "./WeatherForecasts/WeatherForecasts";
 
 const Container = styled.div`
 	padding: 4rem;
@@ -21,63 +18,33 @@ const SearchBar = styled.div`
 	align-items: center;
 `;
 
-const WeatherSearch = (): JSX.Element => {
-	const [availableLocations, setAvailableLocations] = useState<LocationModel[]>([]);
-	const [selectedLocation, setSelectedLocation] = useState<LocationModel>();
-	const [weatherForecasts, setWeatherForecasts] = useState<WeatherForecastModel[]>([]);
-	const [selectedTemperatureUnit, setSelectedTemperatureUnit] = useState<TemperatureUnits>("celcius");
+type WeatherSearchProps = {
+	temperatureUnit: TemperatureUnits;
+	onTemperatureUnitChange: (unit: TemperatureUnits) => void;
+	onSearchInputChange: (searchPhrase: string) => void;
+	selectedLocation: LocationModel | undefined;
+	onSelectedLocationChange: (location: LocationModel) => void;
+	weatherForecasts: WeatherForecastModel[];
+	availableLocations: LocationModel[];
+	debounceWaitPeriod?: number;
+};
 
-	useEffect(() => {
-		const lastSelectedLocation = getFromStorage<LocationModel>("LAST_SELECTED_LOCATION");
-
-		if (lastSelectedLocation) {
-			setSelectedLocation(lastSelectedLocation);
-		} else {
-			navigator.geolocation.getCurrentPosition(async (position) => {
-				setSelectedLocation(
-					await getNearestLocationByCoords(position.coords.latitude, position.coords.longitude)
-				);
-			});
-		}
-	}, []);
-
-	useEffect(() => {
-		async function setWeatherModelsAsync() {
-			if (!selectedLocation) {
-				setWeatherForecasts([]);
-			} else {
-				setWeatherForecasts(await getWeatherForecast(selectedLocation.name, selectedLocation.id, 3));
-				addToStorage("LAST_SELECTED_LOCATION", selectedLocation);
-			}
-		}
-
-		setWeatherModelsAsync();
-	}, [selectedLocation]);
-
-	const onSearchInputChange = async (searchPhrase: string) => {
-		if (searchPhrase.trim() === "") {
-			return;
-		}
-
-		const locations = await getLocations(searchPhrase);
-
-		if (locations.length === 1) {
-			const selectedLocation = locations[0];
-			setSelectedLocation(selectedLocation);
-		} else {
-			setAvailableLocations(locations);
-			setSelectedLocation(undefined);
-		}
-	};
-
-	const debounceWaitPeriod = 1000;
-
+const WeatherSearch: React.FC<WeatherSearchProps> = ({
+	temperatureUnit,
+	onTemperatureUnitChange,
+	onSearchInputChange,
+	selectedLocation,
+	onSelectedLocationChange,
+	weatherForecasts,
+	availableLocations,
+	debounceWaitPeriod,
+}: WeatherSearchProps) => {
 	return (
 		<Container>
-			<TemperatureUnitsContext.Provider value={selectedTemperatureUnit}>
+			<TemperatureUnitsContext.Provider value={temperatureUnit}>
 				<SearchBar>
 					<SearchInput onChange={debounce(onSearchInputChange, debounceWaitPeriod)} />
-					<UnitsToggle onChange={setSelectedTemperatureUnit} unit={selectedTemperatureUnit} />
+					<UnitsToggle onChange={onTemperatureUnitChange} unit={temperatureUnit} />
 				</SearchBar>
 
 				{selectedLocation ? (
@@ -85,7 +52,7 @@ const WeatherSearch = (): JSX.Element => {
 				) : (
 					<AvailableLocations
 						locations={availableLocations}
-						onLocationSelect={(location: LocationModel) => setSelectedLocation(location)}
+						onLocationSelect={(location: LocationModel) => onSelectedLocationChange(location)}
 					/>
 				)}
 			</TemperatureUnitsContext.Provider>

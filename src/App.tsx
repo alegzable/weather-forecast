@@ -1,11 +1,11 @@
 import GlobalStyles from "./globalStyles";
-import WeatherSearch from "./Components/WeatherSearch";
+import WeatherSearchPage from "./Pages/WeatherSearch";
 
 function App() {
 	return (
 		<div>
 			<GlobalStyles />
-			<WeatherSearch />
+			<WeatherSearchPage />
 		</div>
 	);
 }
