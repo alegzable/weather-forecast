@@ -5,6 +5,8 @@ type SearchInputProps = {
 	onChange: (value: string) => void;
 };
 
+export const testId = "searchInput";
+
 const Input = styled.input`
 	flex: 1;
 	height: 4rem;
@@ -15,7 +17,9 @@ const Input = styled.input`
 `;
 
 const SearchInput: React.FC<SearchInputProps> = ({ onChange }: SearchInputProps) => {
-	return <Input type="text" placeholder="Search..." onChange={(e) => onChange(e.target.value)} />;
+	return (
+		<Input type="text" placeholder="Search..." onChange={(e) => onChange(e.target.value)} data-testid={testId} />
+	);
 };
 
 export default SearchInput;
