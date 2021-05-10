@@ -1,4 +1,4 @@
-import { getNearestLocation, toFahrenheit } from "./utils";
+import { getNearestLocation, toFahrenheit, toNumber } from "./utils";
 
 describe("getNearestLocation", () => {
 	test("returns nearest element", () => {
@@ -38,5 +38,31 @@ describe("toFahrenheit", () => {
 		const result = toFahrenheit(testCase.celcius, 1);
 
 		expect(result).toBe(testCase.fahrenheit);
+	});
+});
+
+describe("toNumber", () => {
+	const cases = [
+		{
+			value: "1",
+			result: 1,
+		},
+		{
+			value: "-1",
+			result: -1,
+		},
+		{
+			value: "1.1",
+			result: 1.1,
+		},
+		{
+			value: "1.9",
+			result: 1.9,
+		},
+	];
+	test.each(cases)("[%s] correctly converts string to number", (testCase) => {
+		const result = toNumber(testCase.value, 1);
+
+		expect(result).toBe(testCase.result);
 	});
 });
