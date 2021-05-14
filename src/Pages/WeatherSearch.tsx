@@ -11,8 +11,11 @@ const WeatherSearchPage = (): JSX.Element => {
 	const [selectedLocation, setSelectedLocation] = useState<LocationModel>();
 	const [weatherForecasts, setWeatherForecasts] = useState<WeatherForecastModel[]>([]);
 	const [selectedTemperatureUnit, setSelectedTemperatureUnit] = useState<TemperatureUnits>("celcius");
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	useEffect(() => {
+		setIsLoading(true);
+
 		const lastSelectedLocation = getFromStorage<LocationModel>("LAST_SELECTED_LOCATION");
 
 		if (lastSelectedLocation) {
@@ -22,21 +25,21 @@ const WeatherSearchPage = (): JSX.Element => {
 				setSelectedLocation(
 					await getNearestLocationByCoords(position.coords.latitude, position.coords.longitude)
 				);
+
+				setIsLoading(false);
 			});
 		}
 	}, []);
 
 	useEffect(() => {
-		async function setWeatherModelsAsync() {
+		runLoadingAction(async () => {
 			if (!selectedLocation) {
 				setWeatherForecasts([]);
 			} else {
 				setWeatherForecasts(await getWeatherForecast(selectedLocation.name, selectedLocation.id, 3));
 				addToStorage("LAST_SELECTED_LOCATION", selectedLocation);
 			}
-		}
-
-		setWeatherModelsAsync();
+		});
 	}, [selectedLocation]);
 
 	const onSearchInputChange = async (searchPhrase: string) => {
@@ -44,15 +47,23 @@ const WeatherSearchPage = (): JSX.Element => {
 			return;
 		}
 
-		const locations = await getLocations(searchPhrase);
+		await runLoadingAction(async () => {
+			const locations = await getLocations(searchPhrase);
 
-		if (locations.length === 1) {
-			const selectedLocation = locations[0];
-			setSelectedLocation(selectedLocation);
-		} else {
-			setAvailableLocations(locations);
-			setSelectedLocation(undefined);
-		}
+			if (locations.length === 1) {
+				const selectedLocation = locations[0];
+				setSelectedLocation(selectedLocation);
+			} else {
+				setAvailableLocations(locations);
+				setSelectedLocation(undefined);
+			}
+		});
+	};
+
+	const runLoadingAction = async (action: () => Promise<void>) => {
+		setIsLoading(true);
+		await action();
+		setIsLoading(false);
 	};
 
 	return (
@@ -64,6 +75,7 @@ const WeatherSearchPage = (): JSX.Element => {
 			onSelectedLocationChange={setSelectedLocation}
 			weatherForecasts={weatherForecasts}
 			availableLocations={availableLocations}
+			isLoading={isLoading}
 			debounceWaitPeriod={300}
 		/>
 	);

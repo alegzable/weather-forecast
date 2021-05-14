@@ -1,10 +1,12 @@
 import { debounce } from "lodash";
+import React from "react";
 import styled from "styled-components";
 import { LocationModel } from "../Models/LocationModel";
 import { TemperatureUnits } from "../Models/TemperatureUnits";
 import { WeatherForecastModel } from "../Models/WeatherForecastModel";
 import { TemperatureUnitsContext } from "../TemperatureUnitsContext";
 import AvailableLocations from "./AvaliableLocations/AvailableLocations";
+import { Loader } from "./Layout/Loader";
 import SearchInput from "./SearchInput";
 import UnitsToggle from "./UnitsToggle";
 import WeatherForecasts from "./WeatherForecasts/WeatherForecasts";
@@ -27,6 +29,7 @@ type WeatherSearchProps = {
 	weatherForecasts: WeatherForecastModel[];
 	availableLocations: LocationModel[];
 	debounceWaitPeriod?: number;
+	isLoading: boolean;
 };
 
 const WeatherSearch: React.FC<WeatherSearchProps> = ({
@@ -38,6 +41,7 @@ const WeatherSearch: React.FC<WeatherSearchProps> = ({
 	weatherForecasts,
 	availableLocations,
 	debounceWaitPeriod,
+	isLoading,
 }: WeatherSearchProps) => {
 	return (
 		<Container>
@@ -46,15 +50,16 @@ const WeatherSearch: React.FC<WeatherSearchProps> = ({
 					<SearchInput onChange={debounce(onSearchInputChange, debounceWaitPeriod)} />
 					<UnitsToggle onChange={onTemperatureUnitChange} unit={temperatureUnit} />
 				</SearchBar>
-
-				{selectedLocation ? (
-					<WeatherForecasts forecasts={weatherForecasts} />
-				) : (
-					<AvailableLocations
-						locations={availableLocations}
-						onLocationSelect={(location: LocationModel) => onSelectedLocationChange(location)}
-					/>
-				)}
+				<Loader isLoading={isLoading}>
+					{selectedLocation ? (
+						<WeatherForecasts forecasts={weatherForecasts} />
+					) : (
+						<AvailableLocations
+							locations={availableLocations}
+							onLocationSelect={(location: LocationModel) => onSelectedLocationChange(location)}
+						/>
+					)}
+				</Loader>
 			</TemperatureUnitsContext.Provider>
 		</Container>
 	);
