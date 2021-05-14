@@ -13,6 +13,7 @@ import WeatherForecasts from "./WeatherForecasts/WeatherForecasts";
 
 const Container = styled.div`
 	padding: 4rem;
+	height: 100%;
 `;
 
 const SearchBar = styled.div`

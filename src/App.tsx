@@ -3,10 +3,10 @@ import WeatherSearchPage from "./Pages/WeatherSearch";
 
 function App() {
 	return (
-		<div>
+		<>
 			<GlobalStyles />
 			<WeatherSearchPage />
-		</div>
+		</>
 	);
 }
 
