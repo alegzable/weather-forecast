@@ -16,7 +16,7 @@ const Input = styled.input`
 	background-color: #f0f8ff;
 `;
 
-const SearchInput: React.FC<SearchInputProps> = ({ onChange }: SearchInputProps) => {
+const SearchInput: React.FC<SearchInputProps> = ({ onChange }) => {
 	return (
 		<Input type="text" placeholder="Search..." onChange={(e) => onChange(e.target.value)} data-testid={testId} />
 	);

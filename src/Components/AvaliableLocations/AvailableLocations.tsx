@@ -13,10 +13,7 @@ const ClickableTile = styled(Tile)`
 	cursor: pointer;
 `;
 
-const AvailableLocations: React.FC<AvailableLocationsProps> = ({
-	locations,
-	onLocationSelect,
-}: AvailableLocationsProps) => {
+const AvailableLocations: React.FC<AvailableLocationsProps> = ({ locations, onLocationSelect }) => {
 	return (
 		<Tiles>
 			{locations.map((location) => (

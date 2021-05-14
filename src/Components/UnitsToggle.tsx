@@ -16,7 +16,7 @@ const Label = styled.label`
 
 export const testId = "tempUnitToggle";
 
-const UnitsToggle: React.FC<UnitsToggleProps> = ({ onChange, unit }: UnitsToggleProps) => {
+const UnitsToggle: React.FC<UnitsToggleProps> = ({ onChange, unit }) => {
 	const handleChange = (checked: boolean) => {
 		const newUnit: TemperatureUnits = checked ? "fahrenheit" : "celcius";
 		onChange(newUnit);

@@ -7,7 +7,7 @@ type WeatherForecastsProps = {
 	forecasts: WeatherForecastModel[];
 };
 
-const WeatherForecasts: React.FC<WeatherForecastsProps> = ({ forecasts }: WeatherForecastsProps) => {
+const WeatherForecasts: React.FC<WeatherForecastsProps> = ({ forecasts }) => {
 	return (
 		<Tiles>
 			{forecasts.map((forecast) => (

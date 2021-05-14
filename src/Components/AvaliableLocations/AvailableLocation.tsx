@@ -4,7 +4,7 @@ type AvailableLocationProps = {
 	location: LocationModel;
 };
 
-const AvailableLocation: React.FC<AvailableLocationProps> = ({ location }: AvailableLocationProps) => {
+const AvailableLocation: React.FC<AvailableLocationProps> = ({ location }) => {
 	return (
 		<div>
 			<h3>{location.name}</h3>

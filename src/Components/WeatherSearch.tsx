@@ -43,7 +43,7 @@ const WeatherSearch: React.FC<WeatherSearchProps> = ({
 	availableLocations,
 	debounceWaitPeriod,
 	isLoading,
-}: WeatherSearchProps) => {
+}) => {
 	return (
 		<Container>
 			<TemperatureUnitsContext.Provider value={temperatureUnit}>

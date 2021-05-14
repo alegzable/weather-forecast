@@ -8,7 +8,7 @@ type WeatherForecastProps = {
 	forecast: WeatherForecastModel;
 };
 
-const WeatherForecast: React.FC<WeatherForecastProps> = ({ forecast }: WeatherForecastProps) => {
+const WeatherForecast: React.FC<WeatherForecastProps> = ({ forecast }) => {
 	const temperatureUnitsContext = useContext(TemperatureUnitsContext);
 
 	const toSelectedUnit = (tempCelcius: number) => {
