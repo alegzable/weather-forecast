@@ -1,12 +1,10 @@
-export class WeatherForecastModel {
-	public constructor(
-		public id: string,
-		public locationName: string,
-		public date: string,
-		public tempCelcius: number,
-		public minTempCelcius: number,
-		public maxTempCelcius: number,
-		public state: string,
-		public windSpeed: number
-	) {}
-}
+export type WeatherForecastModel = {
+	id: string;
+	locationName: string;
+	date: string;
+	tempCelcius: number;
+	minTempCelcius: number;
+	maxTempCelcius: number;
+	state: string;
+	windSpeed: number;
+};

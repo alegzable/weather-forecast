@@ -14,10 +14,19 @@ describe("WeatherSearch tests", () => {
 			selectedTemperatureUnit = unit;
 		};
 
-		const selectedLocation = new LocationModel("Location 1", "1");
+		const selectedLocation = { name: "Location 1", id: "1" };
 
 		const weatherForecasts: WeatherForecastModel[] = [
-			new WeatherForecastModel("1", "Location 1", "2021-01-01", 10, 5, 10, "Sunny", 5),
+			{
+				id: "1",
+				locationName: "Location 1",
+				date: "2021-01-01",
+				tempCelcius: 10,
+				minTempCelcius: 5,
+				maxTempCelcius: 10,
+				state: "Sunny",
+				windSpeed: 5,
+			},
 		];
 
 		const { rerender } = render(
@@ -58,11 +67,11 @@ describe("WeatherSearch tests", () => {
 	test("Searching displays matching locations", async () => {
 		const searchPhrase = "Test";
 		const allMatchingLocations = [
-			new LocationModel(`${searchPhrase} 1`, "1"),
-			new LocationModel(`${searchPhrase} 2`, "2"),
-			new LocationModel(`${searchPhrase} 3`, "3"),
+			{ name: `${searchPhrase} 1`, id: "1" },
+			{ name: `${searchPhrase} 2`, id: "2" },
+			{ name: `${searchPhrase} 3`, id: "3" },
 		];
-		const notMatchingLocation = new LocationModel("Some Name", "4");
+		const notMatchingLocation = { name: "Some Name", id: "4" };
 		let availableLocations: LocationModel[] = [];
 
 		const onSearchInputChange = (value: string) => {

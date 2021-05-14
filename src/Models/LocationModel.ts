@@ -1,3 +1,4 @@
-export class LocationModel {
-	constructor(public name: string, public id: string) {}
-}
+export type LocationModel = {
+	name: string;
+	id: string;
+};

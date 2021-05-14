@@ -16,7 +16,9 @@ export const getLocations = async (searchPhrase: string): Promise<LocationModel[
 	try {
 		const response = await get<any[]>(getPhraseSearchUrl(searchPhrase));
 
-		return response?.map((x) => new LocationModel(x.title, x.woeid));
+		return response?.map((x) => {
+			return { name: x.title, id: x.woeid };
+		});
 	} catch (error) {
 		console.error(error);
 		return [];
@@ -31,21 +33,18 @@ export const getWeatherForecast = async (
 	try {
 		const response = await get<{ consolidated_weather: any[] }>(getLocationIdUrl(locationId));
 
-		const weatherModels = response?.consolidated_weather
-			.slice(0, days)
-			.map(
-				(x) =>
-					new WeatherForecastModel(
-						x.id,
-						locationName,
-						x.applicable_date,
-						toNumber(x.the_temp, 1),
-						toNumber(x.min_temp, 1),
-						toNumber(x.max_temp, 1),
-						x.weather_state_name,
-						toNumber(x.wind_speed, 1)
-					)
-			);
+		const weatherModels = response?.consolidated_weather.slice(0, days).map((x) => {
+			return {
+				id: x.id,
+				locationName: locationName,
+				date: x.applicable_date,
+				tempCelcius: toNumber(x.the_temp, 1),
+				minTempCelcius: toNumber(x.min_temp, 1),
+				maxTempCelcius: toNumber(x.max_temp, 1),
+				state: x.weather_state_name,
+				windSpeed: toNumber(x.wind_speed, 1),
+			};
+		});
 
 		return weatherModels;
 	} catch (error) {
@@ -63,7 +62,7 @@ export const getNearestLocationByCoords = async (
 
 		const nearestLocation = getNearestLocation(response || []);
 
-		return new LocationModel(nearestLocation.title, nearestLocation.woeid);
+		return { name: nearestLocation.title, id: nearestLocation.woeid };
 	} catch (error) {
 		console.error(error);
 	}
