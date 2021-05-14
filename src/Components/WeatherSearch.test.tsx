@@ -38,6 +38,7 @@ describe("WeatherSearch tests", () => {
 				onSelectedLocationChange={jest.fn}
 				weatherForecasts={weatherForecasts}
 				availableLocations={[]}
+				isLoading={false}
 			/>
 		);
 
@@ -57,6 +58,7 @@ describe("WeatherSearch tests", () => {
 				onSelectedLocationChange={jest.fn}
 				weatherForecasts={weatherForecasts}
 				availableLocations={[]}
+				isLoading={false}
 			/>
 		);
 
@@ -87,6 +89,7 @@ describe("WeatherSearch tests", () => {
 				onSelectedLocationChange={jest.fn}
 				weatherForecasts={[]}
 				availableLocations={availableLocations}
+				isLoading={false}
 			/>
 		);
 
@@ -107,6 +110,7 @@ describe("WeatherSearch tests", () => {
 				onSelectedLocationChange={jest.fn}
 				weatherForecasts={[]}
 				availableLocations={availableLocations}
+				isLoading={false}
 			/>
 		);
 
