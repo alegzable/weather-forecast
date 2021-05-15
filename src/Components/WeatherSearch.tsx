@@ -58,7 +58,7 @@ const WeatherSearch: React.FC<WeatherSearchProps> = ({
 					) : (
 						<AvailableLocations
 							locations={availableLocations}
-							onLocationSelect={(location: LocationModel) => onSelectedLocationChange(location)}
+							onLocationSelect={onSelectedLocationChange}
 						/>
 					)}
 				</Loader>
