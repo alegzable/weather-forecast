@@ -26,9 +26,10 @@ const SpinnerContainer = styled.div`
 `;
 
 const Spinner = () => (
-	<SpinnerContainer>
+	<SpinnerContainer data-testid={testId}>
 		<AnimatedSpinner icon={faSpinner} />
 	</SpinnerContainer>
 );
 
+export const testId = "spinner";
 export default Spinner;
