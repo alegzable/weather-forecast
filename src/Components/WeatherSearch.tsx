@@ -2,6 +2,7 @@ import { debounce } from "lodash";
 import React from "react";
 import styled from "styled-components";
 import { LocationModel } from "../Models/LocationModel";
+import { Maybe } from "../Models/Maybe";
 import { TemperatureUnits } from "../Models/TemperatureUnits";
 import { WeatherForecastModel } from "../Models/WeatherForecastModel";
 import { TemperatureUnitsContext } from "../TemperatureUnitsContext";
@@ -28,7 +29,7 @@ type WeatherSearchProps = {
 	selectedLocation: LocationModel | undefined;
 	onSelectedLocationChange: (location: LocationModel) => void;
 	weatherForecasts: WeatherForecastModel[];
-	availableLocations: LocationModel[];
+	availableLocations: Maybe<LocationModel[]>;
 	debounceWaitPeriod?: number;
 	isLoading: boolean;
 };
