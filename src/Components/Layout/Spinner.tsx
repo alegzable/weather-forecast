@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 const AnimatedSpinner = styled(FontAwesomeIcon)`
-	color: white;
 	font-size: 2.4rem;
 	transform: translate(-50%, -50%);
 	animation: rotation 1s infinite linear;

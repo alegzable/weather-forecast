@@ -9,7 +9,6 @@ type UnitsToggleProps = {
 };
 
 const Label = styled.label`
-	color: white;
 	font-size: 2rem;
 	margin-left: 1rem;
 `;

@@ -21,6 +21,7 @@ export default createGlobalStyle`
     .root {
         height: 100%;
         background-color: #133368;
+        color: white;
         overflow-y: scroll;
     }
     
