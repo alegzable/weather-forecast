@@ -1,6 +1,6 @@
 # weather-forecast
 
-Weather forecast app built using https://www.metaweather.com/ API.
+Weather forecasting app built using https://www.metaweather.com/ API.
 
 In order to run the app locally, run these commands:
 
