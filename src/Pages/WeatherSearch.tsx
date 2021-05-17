@@ -5,10 +5,9 @@ import { getLocations, getNearestLocationByCoords, getWeatherForecast } from "..
 import { LocationModel } from "../Models/LocationModel";
 import { WeatherForecastModel } from "../Models/WeatherForecastModel";
 import WeatherSearch from "../Components/WeatherSearch";
-import { Maybe } from "../Models/Maybe";
 
 const WeatherSearchPage = (): JSX.Element => {
-	const [availableLocations, setAvailableLocations] = useState<Maybe<LocationModel[]>>({ value: [] });
+	const [availableLocations, setAvailableLocations] = useState<LocationModel[] | undefined>([]);
 	const [selectedLocation, setSelectedLocation] = useState<LocationModel>();
 	const [weatherForecasts, setWeatherForecasts] = useState<WeatherForecastModel[]>([]);
 	const [selectedTemperatureUnit, setSelectedTemperatureUnit] = useState<TemperatureUnits>("celcius");
@@ -61,7 +60,7 @@ const WeatherSearchPage = (): JSX.Element => {
 				const selectedLocation = locations[0];
 				setSelectedLocation(selectedLocation);
 			} else {
-				setAvailableLocations({ value: locations.length > 0 ? locations : undefined });
+				setAvailableLocations(locations.length > 0 ? locations : undefined);
 				setSelectedLocation(undefined);
 			}
 		});
