@@ -14,11 +14,11 @@ describe("WeatherSearch tests", () => {
 			selectedTemperatureUnit = unit;
 		};
 
-		const selectedLocation = { name: "Location 1", id: "1" };
+		const selectedLocation = { name: "Location 1", id: 1 };
 
 		const weatherForecasts: WeatherForecastModel[] = [
 			{
-				id: "1",
+				id: 1,
 				locationName: "Location 1",
 				date: "2021-01-01",
 				tempCelcius: 10,
@@ -69,9 +69,9 @@ describe("WeatherSearch tests", () => {
 	test("Searching displays matching locations", async () => {
 		const searchPhrase = "Test";
 		const allMatchingLocations = [
-			{ name: `${searchPhrase} 1`, id: "1" },
-			{ name: `${searchPhrase} 2`, id: "2" },
-			{ name: `${searchPhrase} 3`, id: "3" },
+			{ name: `${searchPhrase} 1`, id: 1 },
+			{ name: `${searchPhrase} 2`, id: 2 },
+			{ name: `${searchPhrase} 3`, id: 3 },
 		];
 		const notMatchingLocation = { name: "Some Name", id: "4" };
 		let availableLocations: LocationModel[] = [];
@@ -80,7 +80,7 @@ describe("WeatherSearch tests", () => {
 			availableLocations = [...allMatchingLocations.filter((x) => x.name.includes(value))];
 		};
 
-		let { rerender } = render(
+		const { rerender } = render(
 			<WeatherSearch
 				temperatureUnit={"celcius"}
 				onTemperatureUnitChange={jest.fn}
