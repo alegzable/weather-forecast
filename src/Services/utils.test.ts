@@ -1,3 +1,4 @@
+import { LocationApiResult } from "../Models/LocationApiResult";
 import { getNearestLocation, toFahrenheit } from "./utils";
 
 describe("getNearestLocation", () => {
@@ -5,15 +6,15 @@ describe("getNearestLocation", () => {
 		const expectedNearest = { distance: 1 };
 		const array = [{ distance: 2 }, { distance: 3 }, expectedNearest];
 
-		const result = getNearestLocation(array);
+		const result = getNearestLocation(array as LocationApiResult[]);
 
 		expect(result).toBe(expectedNearest);
 	});
 
-	test("returns null when array is empty", () => {
+	test("returns undefined when array is empty", () => {
 		const result = getNearestLocation([]);
 
-		expect(result).toBe(null);
+		expect(result).toBe(undefined);
 	});
 });
 
