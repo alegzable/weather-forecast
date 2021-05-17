@@ -25,6 +25,7 @@ const SearchBar = styled.div`
 type WeatherSearchProps = {
 	temperatureUnit: TemperatureUnits;
 	onTemperatureUnitChange: (unit: TemperatureUnits) => void;
+	searchInputValue?: string;
 	onSearchInputChange: (searchPhrase: string) => void;
 	selectedLocation: LocationModel | undefined;
 	onSelectedLocationChange: (location: LocationModel) => void;
@@ -37,6 +38,7 @@ type WeatherSearchProps = {
 const WeatherSearch: React.FC<WeatherSearchProps> = ({
 	temperatureUnit,
 	onTemperatureUnitChange,
+	searchInputValue,
 	onSearchInputChange,
 	selectedLocation,
 	onSelectedLocationChange,
@@ -49,7 +51,10 @@ const WeatherSearch: React.FC<WeatherSearchProps> = ({
 		<Container>
 			<TemperatureUnitsContext.Provider value={temperatureUnit}>
 				<SearchBar>
-					<SearchInput onChange={debounce(onSearchInputChange, debounceWaitPeriod)} />
+					<SearchInput
+						onChange={debounce(onSearchInputChange, debounceWaitPeriod)}
+						value={searchInputValue}
+					/>
 					<UnitsToggle onChange={onTemperatureUnitChange} unit={temperatureUnit} />
 				</SearchBar>
 				<Loader isLoading={isLoading}>

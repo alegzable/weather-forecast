@@ -13,6 +13,7 @@ const WeatherSearchPage = (): JSX.Element => {
 	const [weatherForecasts, setWeatherForecasts] = useState<WeatherForecastModel[]>([]);
 	const [selectedTemperatureUnit, setSelectedTemperatureUnit] = useState<TemperatureUnits>("celcius");
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [searchInputValue, setSearchInputValue] = useState<string>();
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -40,10 +41,15 @@ const WeatherSearchPage = (): JSX.Element => {
 				setWeatherForecasts(await getWeatherForecast(selectedLocation.name, selectedLocation.id, 3));
 				addToStorage("LAST_SELECTED_LOCATION", selectedLocation);
 			}
+
+			if (selectedLocation) {
+				setSearchInputValue(selectedLocation.name);
+			}
 		});
 	}, [selectedLocation]);
 
 	const onSearchInputChange = async (searchPhrase: string) => {
+		setSearchInputValue(searchPhrase);
 		if (searchPhrase.trim() === "") {
 			return;
 		}
@@ -71,6 +77,7 @@ const WeatherSearchPage = (): JSX.Element => {
 		<WeatherSearch
 			temperatureUnit={selectedTemperatureUnit}
 			onTemperatureUnitChange={setSelectedTemperatureUnit}
+			searchInputValue={searchInputValue}
 			onSearchInputChange={onSearchInputChange}
 			selectedLocation={selectedLocation}
 			onSelectedLocationChange={setSelectedLocation}

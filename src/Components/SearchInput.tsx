@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 type SearchInputProps = {
+	value?: string;
 	onChange: (value: string) => void;
 };
 
@@ -16,9 +17,24 @@ const Input = styled.input`
 	background-color: #f0f8ff;
 `;
 
-const SearchInput: React.FC<SearchInputProps> = ({ onChange }) => {
+const SearchInput: React.FC<SearchInputProps> = ({ value = "", onChange }) => {
+	const [inputValue, setInputValue] = useState(value);
+
+	useEffect(() => {
+		setInputValue(value);
+	}, [value]);
+
 	return (
-		<Input type="text" placeholder="Search..." onChange={(e) => onChange(e.target.value)} data-testid={testId} />
+		<Input
+			value={inputValue}
+			type="text"
+			placeholder="Search..."
+			onChange={(e) => {
+				setInputValue(e.target.value);
+				onChange(e.target.value);
+			}}
+			data-testid={testId}
+		/>
 	);
 };
 
