@@ -1,6 +1,9 @@
 import { LocationModel } from "../Models/LocationModel";
-import { getNearestLocation, toNumber } from "./utils";
+import { getNearestLocation } from "./utils";
 import { WeatherForecastModel } from "../Models/WeatherForecastModel";
+import { LocationApiResult } from "../Models/LocationApiResult";
+import { WeatherForecastApiResult } from "../Models/WeatherForecastApiResult";
+import { round } from "lodash";
 
 const proxy = "https://cors-anywhere.herokuapp.com";
 const baseUrl = `${proxy}/https://www.metaweather.com/api/location`;
@@ -10,11 +13,11 @@ const getPhraseSearchUrl = (searchPhrase: string) => `${baseUrl}/search/?query=$
 const getCoordinateSearchUrl = (latitude: number, longitude: number) =>
 	`${baseUrl}/search/?lattlong=${latitude},${longitude}`;
 
-const getLocationIdUrl = (locationId: string) => `${baseUrl}/${locationId}`;
+const getLocationIdUrl = (locationId: number) => `${baseUrl}/${locationId}`;
 
 export const getLocations = async (searchPhrase: string): Promise<LocationModel[]> => {
 	try {
-		const response = await get<any[]>(getPhraseSearchUrl(searchPhrase));
+		const response = await get<LocationApiResult[]>(getPhraseSearchUrl(searchPhrase));
 
 		return response?.map((x) => {
 			return { name: x.title, id: x.woeid };
@@ -27,22 +30,22 @@ export const getLocations = async (searchPhrase: string): Promise<LocationModel[
 
 export const getWeatherForecast = async (
 	locationName: string,
-	locationId: string,
+	locationId: number,
 	days: number
 ): Promise<WeatherForecastModel[]> => {
 	try {
-		const response = await get<{ consolidated_weather: any[] }>(getLocationIdUrl(locationId));
+		const response = await get<WeatherForecastApiResult>(getLocationIdUrl(locationId));
 
 		const weatherModels = response?.consolidated_weather.slice(0, days).map((x) => {
 			return {
 				id: x.id,
 				locationName: locationName,
 				date: x.applicable_date,
-				tempCelcius: toNumber(x.the_temp, 1),
-				minTempCelcius: toNumber(x.min_temp, 1),
-				maxTempCelcius: toNumber(x.max_temp, 1),
+				tempCelcius: round(x.the_temp, 1),
+				minTempCelcius: round(x.min_temp, 1),
+				maxTempCelcius: round(x.max_temp, 1),
 				state: x.weather_state_name,
-				windSpeed: toNumber(x.wind_speed, 1),
+				windSpeed: round(x.wind_speed, 1),
 			};
 		});
 
@@ -58,11 +61,10 @@ export const getNearestLocationByCoords = async (
 	longitude: number
 ): Promise<LocationModel | undefined> => {
 	try {
-		const response = await get<any[]>(getCoordinateSearchUrl(latitude, longitude));
-
+		const response = await get<LocationApiResult[]>(getCoordinateSearchUrl(latitude, longitude));
 		const nearestLocation = getNearestLocation(response || []);
 
-		return { name: nearestLocation.title, id: nearestLocation.woeid };
+		return nearestLocation ? { name: nearestLocation.title, id: nearestLocation.woeid } : undefined;
 	} catch (error) {
 		console.error(error);
 	}

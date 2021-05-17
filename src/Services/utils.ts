@@ -1,17 +1,14 @@
 import { round } from "lodash";
+import { LocationApiResult } from "../Models/LocationApiResult";
 
-export const getNearestLocation = (array: { distance: number }[]): any => {
-	if (array.length === 0) {
-		return null;
+export const getNearestLocation = (location: LocationApiResult[]): LocationApiResult | undefined => {
+	if (location.length === 0) {
+		return undefined;
 	}
 
-	return array.reduce((a, b) => {
+	return location.reduce((a, b) => {
 		return a.distance < b.distance ? a : b;
 	});
-};
-
-export const toNumber = (value: string, digits: number): number => {
-	return round(+value, digits);
 };
 
 export const toFahrenheit = (tempCelcius: number, digits: number): number => {

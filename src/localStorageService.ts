@@ -1,6 +1,6 @@
 const localStorageKeys = "LAST_SELECTED_LOCATION";
 
-export const addToStorage = (key: typeof localStorageKeys, value: any) => {
+export const addToStorage = (key: typeof localStorageKeys, value: unknown) => {
 	localStorage.setItem(key, JSON.stringify(value));
 };
 

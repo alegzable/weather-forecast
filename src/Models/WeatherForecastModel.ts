@@ -1,5 +1,5 @@
 export type WeatherForecastModel = {
-	id: string;
+	id: number;
 	locationName: string;
 	date: string;
 	tempCelcius: number;
